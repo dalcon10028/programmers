@@ -1,5 +1,3 @@
-from collections import deque
-
 def solution(n, w, num):
     layer = (num - 1) // w + 1 # 층
     idx = (num - 1) % w # 열
