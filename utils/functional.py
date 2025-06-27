@@ -1,9 +1,18 @@
+from functools import partial
 from itertools import tee
 from typing import Iterable, Iterator, Callable, Any
 
 
-def pipe(data: Any, *funcs: Callable[[Any], Any]) -> Any:
-    return [func(data) for func in funcs]
+def curried_map(func: Callable[[Any], Any]) -> Callable[[Iterable[Any]], Iterator[Any]]:
+    """
+    simple curried version of map.
+    """
+    return partial(map, func)
+
+def pipe(data, *funcs):
+    for fn in funcs:
+        data = fn(data)
+    return data
 
 def debug(label: str) -> Callable[[Iterable[Any]], Iterator[Any]]:
     """
